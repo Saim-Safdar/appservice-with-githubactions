@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  AZURE_WEBAPP_NAME: app-service-with-github
+  AZURE_WEBAPP_NAME: demo-github-action
   AZURE_WEBAPP_PATH: '.'
   DOTNET_VERSION: '3.0.103'
 
