@@ -3,41 +3,37 @@ name: Deploy ASP.NET CORE
 on:
   push:
     branches:
-        - master
+      - master
 
 env:
-  AZURE_WEBAPP_NAME: app-service-with-github       
+  AZURE_WEBAPP_NAME: app-service-with-github
   AZURE_WEBAPP_PATH: '.'
   DOTNET_VERSION: '3.0.103'
 
-
 jobs:
-    build-and-deploy:
-      runs-on: ubuntu-latest
-      steps: 
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
 
-        - uses: actions/checkout@master
+      - uses: actions/checkout@master
 
-        - name: Login via Azure CLI
-          uses: azure/login@v1
-          with: 
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        - name: SETUP .NET CORE    
-          uses: actions/setup-dotnet@v1
-          with:
-             dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: SETUP .NET CORE
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-        - name: dotnet build + publish 
-          run: | 
-            dotnet build --configuration release 
-            dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PATH }}/myapp'
-
-        - name: Deploy yo App Service
-          uses: azure/webapps-deploy@v2
-          with:
-            app-name: ${{ env.AZURE_WEBAPP_NAME }}
-            package: '${{ env.AZURE_WEBAPP_PATH }}/myapp'
-
-                 
-                
+      - name: dotnet build + publish
+        run: |
+          dotnet build --configuration release
+          dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PATH }}/myapp'
+      
+      - name: Deploy to App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: '${{ env.AZURE_WEBAPP_PATH }}/myapp'
