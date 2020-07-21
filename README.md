@@ -1,4 +1,4 @@
-# Using Github Action to Deploy to Azure App Service
+# Using Github Actions to Deploy to Azure App Service
 We can take a look at here how to package [asp.net core app](https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core) run it locally and move it all the way up to [azure app service](https://azure.microsoft.com/en-us/services/app-service/#product-overview) with [GitHub actions](https://docs.github.com/en/actions). 
 
 #### Creating a dotnet application.
@@ -28,7 +28,7 @@ This step is required to delicate a control to a specific resource group or if y
 
 #### Creating a RBAC for GitHub Actions
 
-In this command create a [service principal azure](https://docs.microsoft.com/en-us/powershell/azure/create-azure-service-principal-azureps?view=azps-4.4.0) give it a name `svcgithubaction` and created a [RBAC](https://docs.microsoft.com/en-us/azure/role-basetiondemd-access-control/overview) give it role for `contributor` then finally in the scopes area past a resource group id which you want to delicate a control.
+In this command create a [service principal azure](https://docs.microsoft.com/en-us/powershell/azure/create-azure-service-principal-azureps?view=azps-4.4.0) give it a name `svcgithubaction` and creating a [RBAC](https://docs.microsoft.com/en-us/azure/role-basetiondemd-access-control/overview) give it role for `contributor` then finally in the scopes area paste a resource group id which you retrieve earlier using this command `az group list` which you want to delicate a control to.
 
 ```
 az ad sp create-for-rbac -n svcgithubaction --role contributor --scopes "resource group Id" --sdk-auth 
